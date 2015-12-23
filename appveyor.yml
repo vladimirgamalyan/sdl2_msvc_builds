@@ -3,11 +3,15 @@ os: Visual Studio 2015
 before_build:
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
-  - ps: (Get-Content SDL2-2.0.3\VisualC\SDL_VS2013.sln) | Foreach-Object {$_ -replace "# Visual Studio 2013","# Visual Studio 14"} | Foreach-Object {$_ -replace "VisualStudioVersion = 12.0.21005.1","VisualStudioVersion = 14.0.24720.0"} | Set-Content SDL2-2.0.3\VisualC\SDL_VS2015.sln
+  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"'
+  - devenv "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /upgrade
+  #- ps: (Get-Content SDL2-2.0.3\VisualC\SDL_VS2013.sln) | Foreach-Object {$_ -replace "# Visual Studio 2013","# Visual Studio 14"} | Foreach-Object {$_ -replace "VisualStudioVersion = 12.0.21005.1","VisualStudioVersion = 14.0.24720.0"} | Set-Content SDL2-2.0.3\VisualC\SDL_VS2015.sln
+#  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
+#  - 7z x SDL2_net-2.0.0.zip > nul
 
 build_script:
-  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release
-  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug
+  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release
+  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug
 
 after_build:
   - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib
