@@ -1,39 +1,32 @@
 os: Visual Studio 2015
 
-matrix:
-  fast_finish: true
-  
-platform:
-  - Win32
-
-configuration:
-  - Release
-  - Debug
-
 before_build:
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
   - copy SDL_VS2015.sln SDL2-2.0.3\VisualC\SDL_VS2015.sln
 
-build:
-  project: SDL2-2.0.3\VisualC\SDL_VS2015.sln
+build_script:
+  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release
+  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug
 
 after_build:
-  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\%CONFIGURATION%\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\%CONFIGURATION%\\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\%CONFIGURATION%\\SDL2main.lib
+  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib
+  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib
 
 artifacts:
   - path: sdl2.zip
     name: sdl2
+  - path: sdl2d.zip
+    name: sdl2d
 
 deploy:
   provider: GitHub
-  release: SDL2-Binaries-$(CONFIGURATION)
+  release: SDL2-Binaries
   description: 'SDL2 mvsc binaries'
   auth_token:
     secure: FLLAgKct3M0RM2UAGxPMC3CazyD4SyNVh4X3gdB8T1PHYtTvXJOYqG4D+6R9iKop
-  artifact: sdl2
+  artifact: sdl2, sdl2d
   draft: false
   prerelease: false
   on:
     branch: master
-    appveyor_repo_tag: false
