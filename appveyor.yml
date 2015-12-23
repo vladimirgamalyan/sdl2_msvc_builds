@@ -3,19 +3,26 @@ os: Visual Studio 2015
 before_build:
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
+  - 7z x SDL2_net-2.0.0.zip > nul
   - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"'
   - devenv "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /upgrade
-  #- ps: (Get-Content SDL2-2.0.3\VisualC\SDL_VS2013.sln) | Foreach-Object {$_ -replace "# Visual Studio 2013","# Visual Studio 14"} | Foreach-Object {$_ -replace "VisualStudioVersion = 12.0.21005.1","VisualStudioVersion = 14.0.24720.0"} | Set-Content SDL2-2.0.3\VisualC\SDL_VS2015.sln
-#  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
-#  - 7z x SDL2_net-2.0.0.zip > nul
+  - devenv "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /upgrade
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug
+  - set INCLUDE=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\include;%INCLUDE%
+  - set ORIG_LIB=%LIB%
+  - set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Release;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Release;%ORIG_LIB%
+  - echo %LIB%
+  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:useenv=true
+  #- set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Debug;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug;%ORIG_LIB%
+  #- msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:useenv=true
 
 after_build:
-  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib
-  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib
+  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib
+  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb
 
 artifacts:
   - path: sdl2.zip
