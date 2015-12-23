@@ -1,14 +1,21 @@
 os: Visual Studio 2015
 
+matrix:
+  fast_finish: true
+  
+platform:
+  - Win32
+
 configuration:
-  - release
+  - Release
 
 before_build:
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
+  - copy SDL_VS2015.sln SDL2-2.0.3\VisualC\SDL_VS2015.sln
 
 build:
-  project: SDL2-2.0.3\VisualC\SDL_VS2013.sln
+  project: SDL2-2.0.3\VisualC\SDL_VS2015.sln
 
 after_build:
   - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib
