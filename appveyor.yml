@@ -8,6 +8,7 @@ platform:
 
 configuration:
   - Release
+  - Debug
 
 before_build:
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
@@ -18,7 +19,7 @@ build:
   project: SDL2-2.0.3\VisualC\SDL_VS2015.sln
 
 after_build:
-  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib
+  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\%CONFIGURATION%\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\%CONFIGURATION%\\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\%CONFIGURATION%\\SDL2main.lib
 
 artifacts:
   - path: sdl2.zip
@@ -26,7 +27,7 @@ artifacts:
 
 deploy:
   provider: GitHub
-  release: sdl2-binaries
+  release: SDL2-Binaries-$(CONFIGURATION)
   description: 'SDL2 mvsc binaries'
   auth_token:
     secure: FLLAgKct3M0RM2UAGxPMC3CazyD4SyNVh4X3gdB8T1PHYtTvXJOYqG4D+6R9iKop
