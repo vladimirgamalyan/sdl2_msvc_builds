@@ -3,19 +3,21 @@ os: Visual Studio 2015
 before_build:
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
+  - ps: (Get-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c) | Foreach-Object {$_ -replace "#include <dxsdkver.h>","//#include <dxsdkver.h>"} | Set-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
   - 7z x SDL2_net-2.0.0.zip > nul
-  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"'
-  - devenv "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /upgrade
-  - devenv "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /upgrade
 
 build_script:
-  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release
-  - msbuild "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug
+  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"'
+  - devenv "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /upgrade
+  - devenv "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /Rebuild "Release|Win32"
+  - devenv "SDL2-2.0.3\VisualC\SDL_VS2013.sln" /Rebuild "Debug|Win32"
+  #- msbuild "SDL2-2.0.3\VisualC\SDL_VS2010.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release
+  #- msbuild "SDL2-2.0.3\VisualC\SDL_VS2010.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug
+  - devenv "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /upgrade
   - set INCLUDE=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\include;%INCLUDE%
   - set ORIG_LIB=%LIB%
   - set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Release;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Release;%ORIG_LIB%
-  - echo %LIB%
   - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:useenv=true
   #- set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Debug;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug;%ORIG_LIB%
   #- msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:useenv=true
