@@ -6,6 +6,12 @@ before_build:
   - ps: (Get-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c) | Foreach-Object {$_ -replace "#include <dxsdkver.h>","//#include <dxsdkver.h>"} | Set-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
   - 7z x SDL2_net-2.0.0.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.zip
+  - 7z x SDL2_mixer-2.0.0.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.zip
+  - 7z x SDL2_image-2.0.0.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.zip
+  - 7z x SDL2_ttf-2.0.12.zip > nul
   - copy SDL_VS2015.sln SDL2-2.0.3\VisualC\SDL_VS2015.sln
   - copy SDL_VS2015.vcxproj SDL2-2.0.3\VisualC\SDL\SDL_VS2015.vcxproj
   - copy SDLmain_VS2015.vcxproj SDL2-2.0.3\VisualC\SDLmain\SDLmain_VS2015.vcxproj
