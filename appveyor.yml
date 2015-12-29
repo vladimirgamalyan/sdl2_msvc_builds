@@ -24,9 +24,9 @@ build_script:
   - set INCLUDE=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\include;%INCLUDE%
   - set ORIG_LIB=%LIB%
   - set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Release;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Release;%ORIG_LIB%
-  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:useenv=true
+  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32 /p:useenv=true
   - set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Debug;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug;%ORIG_LIB%
-  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:useenv=true
+  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32 /p:useenv=true
 
 after_build:
   - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll
