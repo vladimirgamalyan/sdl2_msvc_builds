@@ -1,9 +1,12 @@
 os: Visual Studio 2015
 
 before_build:
+  # download and unzip SDL2 sources
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
+  # patch sources for vs2015 build (it will disable xaudio support)
   - ps: (Get-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c) | Foreach-Object {$_ -replace "#include <dxsdkver.h>","//#include <dxsdkver.h>"} | Set-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c
+  # download and unzip other SDL2 lib sources
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
   - 7z x SDL2_net-2.0.0.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.zip
@@ -12,21 +15,19 @@ before_build:
   - 7z x SDL2_image-2.0.0.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.zip
   - 7z x SDL2_ttf-2.0.12.zip > nul
+  # copy prepared VS2015 solution and project files
   - copy SDL_VS2015.sln SDL2-2.0.3\VisualC\SDL_VS2015.sln
   - copy SDL_VS2015.vcxproj SDL2-2.0.3\VisualC\SDL\SDL_VS2015.vcxproj
   - copy SDLmain_VS2015.vcxproj SDL2-2.0.3\VisualC\SDLmain\SDLmain_VS2015.vcxproj
+  - copy SDL_net_VS2015.sln SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln
+  - copy SDL_net_VS2015.vcxproj SDL2_net-2.0.0\VisualC\SDL_net_VS2015.vcxproj
+  - copy showinterfaces.vcxproj SDL2_net-2.0.0\VisualC\showinterfaces\showinterfaces.vcxproj
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
-  - cmd: '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"'
-  - devenv "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /upgrade
-  - set INCLUDE=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\include;%INCLUDE%
-  - set ORIG_LIB=%LIB%
-  - set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Release;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Release;%ORIG_LIB%
-  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32 /p:useenv=true
-  - set LIB=C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDL\Win32\Debug;C:\projects\sdl2-msvc-builds\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug;%ORIG_LIB%
-  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2008.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32 /p:useenv=true
+  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32
+  - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
 
 after_build:
   - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll
