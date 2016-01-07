@@ -2,6 +2,10 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/qp157wgdwefr9hq0?svg=true)](https://ci.appveyor.com/project/vladimirgamalian/sdl2-msvc-builds)
 
+## Intro ##
+Official SDL2 and satelite sources do not contain project files for Visual Studio 2015 yet. There are solution and project files for VS2015, an appveyor script, and ready binaries.
+All solution and project files have been made by upgrade previous versions via Visual Studio 2015 CE, plus small fixes for include paths etc.
+
 ## Download binaries ##
   - [release](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip)
   - [debug](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2d.zip)
