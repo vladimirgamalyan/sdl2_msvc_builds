@@ -15,30 +15,45 @@ Both (debug and release) versions contain:
   - SDL2.dll
   - SDL2.pdb
   - SDL2main.lib
+  - COPYING.SDL2.txt
   - SDL2_mixer.lib
   - SDL2_mixer.dll
   - SDL2_mixer.pdb
+  - COPYING.SDL2_mixer.txt
   - libFLAC-8.dll
   - libmodplug-1.dll
   - libogg-0.dll
   - libvorbis-0.dll
   - libvorbisfile-3.dll
   - smpeg2.dll
+  - LICENSE.smpeg.txt
+  - LICENSE.ogg-vorbis.txt
+  - LICENSE.modplug.txt
+  - LICENSE.FLAC.txt
   - SDL2_net.lib
   - SDL2_net.dll
   - SDL2_net.pdb
+  - COPYING.SDL2_net.txt
   - SDL2_ttf.lib
   - SDL2_ttf.dll
   - SDL2_ttf.pdb
+  - COPYING.SDL2_ttf.txt
   - libfreetype-6.dll
+  - LICENSE.freetype.txt
   - SDL2_image.lib
   - SDL2_image.dll
   - SDL2_image.pdb
+  - COPYING.SDL2_image.txt
   - libjpeg-9.dll
   - libpng16-16.dll
   - libtiff-5.dll
   - libwebp-4.dll
   - zlib1.dll
+  - LICENSE.jpeg.txt
+  - LICENSE.png.txt
+  - LICENSE.tiff.txt
+  - LICENSE.webp.txt
+  - LICENSE.zlib.txt
 
 ## License ##
 

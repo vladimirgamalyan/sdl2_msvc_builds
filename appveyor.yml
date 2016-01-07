@@ -40,6 +40,13 @@ before_build:
   - copy SDL_image_VS2015.sln SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln
   - copy SDL_image_VS2015.vcxproj SDL2_image-2.0.1\VisualC\SDL_image_VS2015.vcxproj
   - copy showimage_VS2015.vcxproj SDL2_image-2.0.1\VisualC\showimage\showimage_VS2015.vcxproj
+  # collect licenses
+  - md licences
+  - copy SDL2-2.0.3\COPYING.txt licences\COPYING.SDL2.txt
+  - copy SDL2_image-2.0.1\COPYING.txt licences\COPYING.SDL2_image.txt
+  - copy SDL2_mixer-2.0.0\COPYING.txt licences\COPYING.SDL2_mixer.txt
+  - copy SDL2_net-2.0.0\COPYING.txt licences\COPYING.SDL2_net.txt
+  - copy SDL2_ttf-2.0.12\COPYING.txt licences\COPYING.SDL2_ttf.txt
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
