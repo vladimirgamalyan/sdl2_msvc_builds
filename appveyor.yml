@@ -22,16 +22,24 @@ before_build:
   - copy SDL_net_VS2015.sln SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln
   - copy SDL_net_VS2015.vcxproj SDL2_net-2.0.0\VisualC\SDL_net_VS2015.vcxproj
   - copy showinterfaces.vcxproj SDL2_net-2.0.0\VisualC\showinterfaces\showinterfaces.vcxproj
+  - copy SDL_mixer_VS2015.sln SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln
+  - copy SDL_mixer_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.vcxproj
+  - copy native_midi_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\native_midi\native_midi_VS2015.vcxproj
+  - copy playmus_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\playmus\playmus_VS2015.vcxproj
+  - copy playwave_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\playwave\playwave_VS2015.vcxproj
+  - copy timidity_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\timidity\timidity_VS2015.vcxproj
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
   - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32
   - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
+  - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32
+  - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
 
 after_build:
-  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll
-  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.dll
+  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.dll
+  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.pdb
 
 artifacts:
   - path: sdl2.zip
