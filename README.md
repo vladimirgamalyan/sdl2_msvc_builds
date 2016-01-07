@@ -61,6 +61,7 @@ Both (debug and release) versions contain:
   - LICENSE.tiff.txt
   - LICENSE.webp.txt
   - LICENSE.zlib.txt
+  - + all include files
 
 ## License ##
 

@@ -41,3 +41,4 @@
 .\licences\COPYING.SDL2_mixer.txt
 .\licences\COPYING.SDL2_net.txt
 .\licences\COPYING.SDL2_ttf.txt
+include\SDL2\*.*
