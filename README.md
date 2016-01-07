@@ -6,6 +6,13 @@
 Official SDL2 and satelite sources do not contain project files for Visual Studio 2015 yet. There are solution and project files for VS2015, an appveyor script, and ready binaries.
 All solution and project files have been made by upgrade previous versions via Visual Studio 2015 CE, plus small fixes for include paths etc.
 
+## Versions ##
+ - SDL2-2.0.3
+ - SDL2_image-2.0.1
+ - SDL2_mixer-2.0.0
+ - SDL2_net-2.0.0
+ - SDL2_ttf-2.0.12
+
 ## Download binaries ##
   - [release](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip)
   - [debug](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2d.zip)
