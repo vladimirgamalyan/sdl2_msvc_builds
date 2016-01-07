@@ -1,12 +1,9 @@
 os: Visual Studio 2015
 
 before_build:
-  # download and unzip SDL2 sources
+  # download and unzip sources
   - appveyor DownloadFile https://www.libsdl.org/release/SDL2-2.0.3.zip
   - 7z x SDL2-2.0.3.zip > nul
-  # patch sources for vs2015 build (it will disable xaudio support)
-  - ps: (Get-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c) | Foreach-Object {$_ -replace "#include <dxsdkver.h>","//#include <dxsdkver.h>"} | Set-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c
-  # download and unzip other SDL2 lib sources
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
   - 7z x SDL2_net-2.0.0.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.zip
@@ -15,19 +12,28 @@ before_build:
   - 7z x SDL2_image-2.0.0.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.zip
   - 7z x SDL2_ttf-2.0.12.zip > nul
+  # patch sources for vs2015 build (it will disable xaudio support)
+  - ps: (Get-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c) | Foreach-Object {$_ -replace "#include <dxsdkver.h>","//#include <dxsdkver.h>"} | Set-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c
   # copy prepared VS2015 solution and project files
   - copy SDL_VS2015.sln SDL2-2.0.3\VisualC\SDL_VS2015.sln
   - copy SDL_VS2015.vcxproj SDL2-2.0.3\VisualC\SDL\SDL_VS2015.vcxproj
   - copy SDLmain_VS2015.vcxproj SDL2-2.0.3\VisualC\SDLmain\SDLmain_VS2015.vcxproj
+  # SDL_net
   - copy SDL_net_VS2015.sln SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln
   - copy SDL_net_VS2015.vcxproj SDL2_net-2.0.0\VisualC\SDL_net_VS2015.vcxproj
   - copy showinterfaces.vcxproj SDL2_net-2.0.0\VisualC\showinterfaces\showinterfaces.vcxproj
+  # SDL_mixer
   - copy SDL_mixer_VS2015.sln SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln
   - copy SDL_mixer_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.vcxproj
   - copy native_midi_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\native_midi\native_midi_VS2015.vcxproj
   - copy playmus_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\playmus\playmus_VS2015.vcxproj
   - copy playwave_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\playwave\playwave_VS2015.vcxproj
   - copy timidity_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\timidity\timidity_VS2015.vcxproj
+  # SDL_ttf
+  - copy SDL_ttf_VS2015.sln SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln
+  - copy SDL_ttf_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.vcxproj
+  - copy glfont_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\glfont\glfont_VS2015.vcxproj
+  - copy showfont_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\showfont\showfont_VS2015.vcxproj
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
@@ -36,10 +42,12 @@ build_script:
   - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
   - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32
   - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
+  - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
+  - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
 
 after_build:
-  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.dll
-  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.pdb
+  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.dll .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.lib .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.dll
+  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.pdb .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.lib .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.dll .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.pdb
 
 artifacts:
   - path: sdl2.zip

@@ -126,7 +126,6 @@
     <Link>
       <AdditionalDependencies>winmm.lib;SDL2.lib;SDL2main.lib;native_midi.lib;timidity.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>./$(Configuration)/$(Platform)/SDL_mixer.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
@@ -201,7 +200,6 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>winmm.lib;SDL2.lib;SDL2main.lib;native_midi.lib;timidity.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ProgramDatabaseFile>./$(Configuration)/$(Platform)/SDL_mixer.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
