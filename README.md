@@ -14,8 +14,8 @@ All solution and project files have been made by upgrade previous versions via V
  - SDL2_ttf-2.0.12
 
 ## Download binaries ##
-  - [release](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip)
-  - [debug](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2d.zip)
+  - [release (x86)](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip)
+  - [debug (x86)](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2d.zip)
   
 Both (debug and release) versions contain:
   - SDL2.lib
