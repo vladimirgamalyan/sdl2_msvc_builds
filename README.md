@@ -14,12 +14,19 @@ Both (debug and release) versions contain:
   - SDL2_mixer.lib
   - SDL2_mixer.dll
   - SDL2_mixer.pdb
+  - libFLAC-8.dll
+  - libmodplug-1.dll
+  - libogg-0.dll
+  - libvorbis-0.dll
+  - libvorbisfile-3.dll
+  - smpeg2.dll
   - SDL2_net.lib
   - SDL2_net.dll
   - SDL2_net.pdb
   - SDL2_ttf.lib
   - SDL2_ttf.dll
   - SDL2_ttf.pdb
+  - libfreetype-6.dll
   - SDL2_image.lib
   - SDL2_image.dll
   - SDL2_image.pdb
