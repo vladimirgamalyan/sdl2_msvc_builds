@@ -12,6 +12,8 @@ before_build:
   - 7z x SDL2_image-2.0.0.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.zip
   - 7z x SDL2_ttf-2.0.12.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.zip
+  - 7z x SDL2_image-2.0.1.zip > nul
   # patch sources for vs2015 build (it will disable xaudio support)
   - ps: (Get-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c) | Foreach-Object {$_ -replace "#include <dxsdkver.h>","//#include <dxsdkver.h>"} | Set-Content SDL2-2.0.3\src\audio\xaudio2\SDL_xaudio2.c
   # copy prepared VS2015 solution and project files
@@ -21,7 +23,7 @@ before_build:
   # SDL_net
   - copy SDL_net_VS2015.sln SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln
   - copy SDL_net_VS2015.vcxproj SDL2_net-2.0.0\VisualC\SDL_net_VS2015.vcxproj
-  - copy showinterfaces.vcxproj SDL2_net-2.0.0\VisualC\showinterfaces\showinterfaces.vcxproj
+  - copy showinterfaces_VS2015.vcxproj SDL2_net-2.0.0\VisualC\showinterfaces\showinterfaces_VS2015.vcxproj
   # SDL_mixer
   - copy SDL_mixer_VS2015.sln SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln
   - copy SDL_mixer_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.vcxproj
@@ -34,6 +36,10 @@ before_build:
   - copy SDL_ttf_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.vcxproj
   - copy glfont_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\glfont\glfont_VS2015.vcxproj
   - copy showfont_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\showfont\showfont_VS2015.vcxproj
+  # SDL_image
+  - copy SDL_image_VS2015.sln SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln
+  - copy SDL_image_VS2015.vcxproj SDL2_image-2.0.1\VisualC\SDL_image_VS2015.vcxproj
+  - copy showimage_VS2015.vcxproj SDL2_image-2.0.1\VisualC\showimage\showimage_VS2015.vcxproj
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
@@ -44,10 +50,12 @@ build_script:
   - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
   - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
   - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
+  - msbuild "SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
+  - msbuild "SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
 
 after_build:
-  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.pdb .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.pdb .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.lib .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.dll .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.pdb
-  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.pdb .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.lib .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.dll .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.pdb
+  - 7z a sdl2.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll .\SDL2_net-2.0.0\VisualC\Release\SDL2_net.pdb .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Release\SDL2_mixer.pdb .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.lib .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.dll .\SDL2_ttf-2.0.12\VisualC\Win32\Release\SDL2_ttf.pdb .\SDL2_image-2.0.1\VisualC\Win32\Release\SDL2_image.pdb .\SDL2_image-2.0.1\VisualC\Win32\Release\SDL2_image.dll .\SDL2_image-2.0.1\VisualC\Win32\Release\SDL2_image.lib .\SDL2_image-2.0.1\VisualC\Win32\Release\libjpeg-9.dll .\SDL2_image-2.0.1\VisualC\Win32\Release\libpng16-16.dll .\SDL2_image-2.0.1\VisualC\Win32\Release\libtiff-5.dll .\SDL2_image-2.0.1\VisualC\Win32\Release\libwebp-4.dll .\SDL2_image-2.0.1\VisualC\Win32\Release\zlib1.dll
+  - 7z a sdl2d.zip .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.lib .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.dll .\SDL2-2.0.3\VisualC\SDL\Win32\Debug\SDL2.pdb .\SDL2-2.0.3\VisualC\SDLmain\Win32\Debug\SDL2main.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.lib .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.pdb .\SDL2_net-2.0.0\VisualC\Debug\SDL2_net.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.lib .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.dll .\SDL2_mixer-2.0.0\VisualC\Debug\SDL2_mixer.pdb .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.lib .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.dll .\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.pdb .\SDL2_image-2.0.1\VisualC\Win32\Debug\SDL2_image.pdb .\SDL2_image-2.0.1\VisualC\Win32\Debug\SDL2_image.dll .\SDL2_image-2.0.1\VisualC\Win32\Debug\SDL2_image.lib .\SDL2_image-2.0.1\VisualC\Win32\Debug\libjpeg-9.dll .\SDL2_image-2.0.1\VisualC\Win32\Debug\libpng16-16.dll .\SDL2_image-2.0.1\VisualC\Win32\Debug\libtiff-5.dll .\SDL2_image-2.0.1\VisualC\Win32\Debug\libwebp-4.dll .\SDL2_image-2.0.1\VisualC\Win32\Debug\zlib1.dll
 
 artifacts:
   - path: sdl2.zip

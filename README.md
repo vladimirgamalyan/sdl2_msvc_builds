@@ -20,6 +20,14 @@ Both (debug and release) versions contain:
   - SDL2_ttf.lib
   - SDL2_ttf.dll
   - SDL2_ttf.pdb
+  - SDL2_image.lib
+  - SDL2_image.dll
+  - SDL2_image.pdb
+  - libjpeg-9.dll
+  - libpng16-16.dll
+  - libtiff-5.dll
+  - libwebp-4.dll
+  - zlib1.dll
 
 ## License ##
 
