@@ -6,6 +6,9 @@
 Official SDL2 and satelite sources do not contain project files for Visual Studio 2015 yet. There are solution and project files for VS2015, an appveyor script, and ready binaries.
 All solution and project files have been made by upgrade previous versions via Visual Studio 2015 CE, plus small fixes for include paths etc.
 
+## Usage example ##
+[neopedersia](https://github.com/vladimirgamalian/neopedersia/blob/master/appveyor.yml)
+
 ## Versions ##
  - SDL2-2.0.3
  - SDL2_image-2.0.1
@@ -61,7 +64,7 @@ Both (debug and release) versions contain:
   - LICENSE.tiff.txt
   - LICENSE.webp.txt
   - LICENSE.zlib.txt
-  - + all include files
+  - all include files in include/SDL2 subdir
 
 ## License ##
 
