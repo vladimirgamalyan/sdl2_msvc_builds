@@ -12,7 +12,7 @@ All solution and project files have been made by upgrade previous versions via V
 ## Versions ##
  - SDL2-2.0.3
  - SDL2_image-2.0.1
- - SDL2_mixer-2.0.0
+ - SDL2_mixer-2.0.1
  - SDL2_net-2.0.0
  - SDL2_ttf-2.0.12
 

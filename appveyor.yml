@@ -6,8 +6,8 @@ before_build:
   - 7z x SDL2-2.0.3.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_net/release/SDL2_net-2.0.0.zip
   - 7z x SDL2_net-2.0.0.zip > nul
-  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.0.zip
-  - 7z x SDL2_mixer-2.0.0.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.0.1.zip
+  - 7z x SDL2_mixer-2.0.1.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.zip
   - 7z x SDL2_image-2.0.0.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.zip
@@ -25,12 +25,12 @@ before_build:
   - copy SDL_net_VS2015.vcxproj SDL2_net-2.0.0\VisualC\SDL_net_VS2015.vcxproj
   - copy showinterfaces_VS2015.vcxproj SDL2_net-2.0.0\VisualC\showinterfaces\showinterfaces_VS2015.vcxproj
   # SDL_mixer
-  - copy SDL_mixer_VS2015.sln SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln
-  - copy SDL_mixer_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.vcxproj
-  - copy native_midi_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\native_midi\native_midi_VS2015.vcxproj
-  - copy playmus_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\playmus\playmus_VS2015.vcxproj
-  - copy playwave_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\playwave\playwave_VS2015.vcxproj
-  - copy timidity_VS2015.vcxproj SDL2_mixer-2.0.0\VisualC\timidity\timidity_VS2015.vcxproj
+  - copy SDL_mixer_VS2015.sln SDL2_mixer-2.0.1\VisualC\SDL_mixer_VS2015.sln
+  - copy SDL_mixer_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\SDL_mixer_VS2015.vcxproj
+  - copy native_midi_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\native_midi\native_midi_VS2015.vcxproj
+  - copy playmus_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\playmus\playmus_VS2015.vcxproj
+  - copy playwave_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\playwave\playwave_VS2015.vcxproj
+  - copy timidity_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\timidity\timidity_VS2015.vcxproj
   # SDL_ttf
   - copy SDL_ttf_VS2015.sln SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln
   - copy SDL_ttf_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.vcxproj
@@ -44,7 +44,7 @@ before_build:
   - md licences
   - copy SDL2-2.0.3\COPYING.txt licences\COPYING.SDL2.txt
   - copy SDL2_image-2.0.1\COPYING.txt licences\COPYING.SDL2_image.txt
-  - copy SDL2_mixer-2.0.0\COPYING.txt licences\COPYING.SDL2_mixer.txt
+  - copy SDL2_mixer-2.0.1\COPYING.txt licences\COPYING.SDL2_mixer.txt
   - copy SDL2_net-2.0.0\COPYING.txt licences\COPYING.SDL2_net.txt
   - copy SDL2_ttf-2.0.12\COPYING.txt licences\COPYING.SDL2_ttf.txt
   # collect includes
@@ -52,7 +52,7 @@ before_build:
   - md include\SDL2
   - copy SDL2-2.0.3\include\*.* include\SDL2
   - copy SDL2_image-2.0.1\SDL_image.h include\SDL2
-  - copy SDL2_mixer-2.0.0\SDL_mixer.h include\SDL2
+  - copy SDL2_mixer-2.0.1\SDL_mixer.h include\SDL2
   - copy SDL2_net-2.0.0\SDL_net.h include\SDL2
   - copy SDL2_ttf-2.0.12\SDL_ttf.h include\SDL2
 
@@ -61,8 +61,8 @@ build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
   - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32
   - msbuild "SDL2_net-2.0.0\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
-  - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=Win32
-  - msbuild "SDL2_mixer-2.0.0\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
+  - msbuild "SDL2_mixer-2.0.1\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
+  - msbuild "SDL2_mixer-2.0.1\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
   - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
   - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
   - msbuild "SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
