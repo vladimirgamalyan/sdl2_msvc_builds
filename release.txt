@@ -2,9 +2,9 @@
 .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll
 .\SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.pdb
 .\SDL2-2.0.3\VisualC\SDLmain\Win32\Release\SDL2main.lib
-.\SDL2_net-2.0.0\VisualC\Release\SDL2_net.lib
-.\SDL2_net-2.0.0\VisualC\Release\SDL2_net.dll
-.\SDL2_net-2.0.0\VisualC\Release\SDL2_net.pdb
+.\SDL2_net-2.0.1\VisualC\Win32\Release\SDL2_net.lib
+.\SDL2_net-2.0.1\VisualC\Win32\Release\SDL2_net.dll
+.\SDL2_net-2.0.1\VisualC\Win32\Release\SDL2_net.pdb
 .\SDL2_mixer-2.0.1\VisualC\Win32\Release\SDL2_mixer.lib
 .\SDL2_mixer-2.0.1\VisualC\Win32\Release\SDL2_mixer.dll
 .\SDL2_mixer-2.0.1\VisualC\Win32\Release\SDL2_mixer.pdb
