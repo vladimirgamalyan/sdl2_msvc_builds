@@ -10,8 +10,8 @@ before_build:
   - 7z x SDL2_mixer-2.0.1.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.zip
   - 7z x SDL2_image-2.0.0.zip > nul
-  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.zip
-  - 7z x SDL2_ttf-2.0.12.zip > nul
+  - appveyor DownloadFile https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.13.zip
+  - 7z x SDL2_ttf-2.0.13.zip > nul
   - appveyor DownloadFile https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.1.zip
   - 7z x SDL2_image-2.0.1.zip > nul
   # patch sources for vs2015 build (it will disable xaudio support)
@@ -32,10 +32,10 @@ before_build:
   - copy playwave_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\playwave\playwave_VS2015.vcxproj
   - copy timidity_VS2015.vcxproj SDL2_mixer-2.0.1\VisualC\timidity\timidity_VS2015.vcxproj
   # SDL_ttf
-  - copy SDL_ttf_VS2015.sln SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln
-  - copy SDL_ttf_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.vcxproj
-  - copy glfont_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\glfont\glfont_VS2015.vcxproj
-  - copy showfont_VS2015.vcxproj SDL2_ttf-2.0.12\VisualC\showfont\showfont_VS2015.vcxproj
+  - copy SDL_ttf_VS2015.sln SDL2_ttf-2.0.13\VisualC\SDL_ttf_VS2015.sln
+  - copy SDL_ttf_VS2015.vcxproj SDL2_ttf-2.0.13\VisualC\SDL_ttf_VS2015.vcxproj
+  - copy glfont_VS2015.vcxproj SDL2_ttf-2.0.13\VisualC\glfont\glfont_VS2015.vcxproj
+  - copy showfont_VS2015.vcxproj SDL2_ttf-2.0.13\VisualC\showfont\showfont_VS2015.vcxproj
   # SDL_image
   - copy SDL_image_VS2015.sln SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln
   - copy SDL_image_VS2015.vcxproj SDL2_image-2.0.1\VisualC\SDL_image_VS2015.vcxproj
@@ -46,7 +46,7 @@ before_build:
   - copy SDL2_image-2.0.1\COPYING.txt licences\COPYING.SDL2_image.txt
   - copy SDL2_mixer-2.0.1\COPYING.txt licences\COPYING.SDL2_mixer.txt
   - copy SDL2_net-2.0.1\COPYING.txt licences\COPYING.SDL2_net.txt
-  - copy SDL2_ttf-2.0.12\COPYING.txt licences\COPYING.SDL2_ttf.txt
+  - copy SDL2_ttf-2.0.13\COPYING.txt licences\COPYING.SDL2_ttf.txt
   # collect includes
   - md include
   - md include\SDL2
@@ -54,7 +54,7 @@ before_build:
   - copy SDL2_image-2.0.1\SDL_image.h include\SDL2
   - copy SDL2_mixer-2.0.1\SDL_mixer.h include\SDL2
   - copy SDL2_net-2.0.1\SDL_net.h include\SDL2
-  - copy SDL2_ttf-2.0.12\SDL_ttf.h include\SDL2
+  - copy SDL2_ttf-2.0.13\SDL_ttf.h include\SDL2
 
 build_script:
   - msbuild "SDL2-2.0.3\VisualC\SDL_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
@@ -63,8 +63,8 @@ build_script:
   - msbuild "SDL2_net-2.0.1\VisualC\SDL_net_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=Win32
   - msbuild "SDL2_mixer-2.0.1\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
   - msbuild "SDL2_mixer-2.0.1\VisualC\SDL_mixer_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
-  - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
-  - msbuild "SDL2_ttf-2.0.12\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
+  - msbuild "SDL2_ttf-2.0.13\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
+  - msbuild "SDL2_ttf-2.0.13\VisualC\SDL_ttf_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
   - msbuild "SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Release /p:Platform=x86
   - msbuild "SDL2_image-2.0.1\VisualC\SDL_image_VS2015.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /p:Configuration=Debug /p:Platform=x86
 

@@ -14,7 +14,7 @@ All solution and project files have been made by upgrade previous versions via V
  - SDL2_image-2.0.1
  - SDL2_mixer-2.0.1
  - SDL2_net-2.0.1
- - SDL2_ttf-2.0.12
+ - SDL2_ttf-2.0.13
 
 ## Download binaries ##
   - [release (x86)](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip)

@@ -18,11 +18,11 @@
 .\SDL2_mixer-2.0.1\VisualC\external\lib\x86\LICENSE.ogg-vorbis.txt
 .\SDL2_mixer-2.0.1\VisualC\external\lib\x86\LICENSE.modplug.txt
 .\SDL2_mixer-2.0.1\VisualC\external\lib\x86\LICENSE.FLAC.txt
-.\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.lib
-.\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.dll
-.\SDL2_ttf-2.0.12\VisualC\Win32\Debug\SDL2_ttf.pdb
-.\SDL2_ttf-2.0.12\VisualC\external\lib\x86\libfreetype-6.dll
-.\SDL2_ttf-2.0.12\VisualC\external\lib\x86\LICENSE.freetype.txt
+.\SDL2_ttf-2.0.13\VisualC\Win32\Debug\SDL2_ttf.lib
+.\SDL2_ttf-2.0.13\VisualC\Win32\Debug\SDL2_ttf.dll
+.\SDL2_ttf-2.0.13\VisualC\Win32\Debug\SDL2_ttf.pdb
+.\SDL2_ttf-2.0.13\VisualC\external\lib\x86\libfreetype-6.dll
+.\SDL2_ttf-2.0.13\VisualC\external\lib\x86\LICENSE.freetype.txt
 .\SDL2_image-2.0.1\VisualC\Win32\Debug\SDL2_image.pdb
 .\SDL2_image-2.0.1\VisualC\Win32\Debug\SDL2_image.dll
 .\SDL2_image-2.0.1\VisualC\Win32\Debug\SDL2_image.lib
