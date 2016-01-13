@@ -6,8 +6,11 @@
 Official SDL2 and satelite sources do not contain project files for Visual Studio 2015 yet. There are solution and project files for VS2015, an appveyor script, and ready binaries.
 All solution and project files have been made by upgrade previous versions via Visual Studio 2015 CE, plus small fixes for include paths etc.
 
-## Usage example ##
+## Appveyor usage example ##
 [neopedersia](https://github.com/vladimirgamalian/neopedersia/blob/master/appveyor.yml)
+
+## How to build ##
+Download sources for libraries you need from official site. Add apropriate solution and project files from VS2015 dir. Rebuild.
 
 ## Versions ##
  - SDL2-2.0.3
@@ -15,6 +18,12 @@ All solution and project files have been made by upgrade previous versions via V
  - SDL2_mixer-2.0.1
  - SDL2_net-2.0.1
  - SDL2_ttf-2.0.13
+ 
+## Current limitations ##
+Platform x64 not supported yet.
+
+## Notes for debug version changes ##
+Debug versions have a compiler option "Code Generaion: Multi-threaded Debug DLL" instead "Multi-threaded DLL".
 
 ## Download binaries ##
   - [release (x86)](https://github.com/vladimirgamalian/sdl2_msvc_builds/releases/download/SDL2-Binaries/sdl2.zip)
